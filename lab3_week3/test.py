@@ -25,3 +25,7 @@ class Stack:
         for ele in self.items:
             s += str(ele)+' '
         return s
+
+str = "backtoschool"
+l = list(str)
+print(l)
