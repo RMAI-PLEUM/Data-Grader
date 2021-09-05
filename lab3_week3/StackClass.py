@@ -19,3 +19,10 @@ class Stack:
 
     def size(self):
         return len(self.items)
+    
+    def value(self):
+        s = ' '
+        for ele in self.items:
+            s += str(ele)+' '
+        return s
+
