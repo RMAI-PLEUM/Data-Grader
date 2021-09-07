@@ -29,3 +29,8 @@ class Stack:
 str = "backtoschool"
 l = list(str)
 print(l)
+print("".join(l))
+s = Stack()
+s.push('a')
+s.push('b')
+print(s)
