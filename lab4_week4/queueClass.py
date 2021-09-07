@@ -19,6 +19,14 @@ class Queuelist:
 
     def size(self):
         return len(self.items)
+ 
+    def value(self):
+        ch = ''
+        i = 0
+        for i in range(len(self.items)):
+            ch += str(self.items[i])+' ' 
+        return ch
+    
 
 
 class Queuedeque:
@@ -34,7 +42,6 @@ class Queuedeque:
 
     def deQueue(self):
         return self.items.pop(0)
-
     def isEmpty(self):
         return len(self.items) == 0
 
@@ -49,4 +56,7 @@ class Queuedeque:
         return ch
 
 
-
+l = [2,3,4,5,6]
+q = Queuedeque(l)
+q.deQueue()
+print(q.value())
