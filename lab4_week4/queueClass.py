@@ -40,3 +40,13 @@ class Queuedeque:
 
     def size(self):
         return len(self.items)
+    
+    def value(self):
+        ch = ''
+        i = 0
+        for i in range(len(self.items)):
+            ch += str(self.items[i])+' ' 
+        return ch
+
+
+
