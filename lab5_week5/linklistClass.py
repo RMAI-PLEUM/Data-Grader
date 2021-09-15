@@ -38,6 +38,7 @@ class SinglyLinkedListNoDummy :     # ทำงานเหมือนกับ
     
     def nodeAt(self,i) :              # หาค่าตำแหน่งของโหนด เทียบกับ อินเด็กซ์
         p = self.head
+        
         for j in range(0,i) :
             p = p.next
         return p
@@ -86,3 +87,5 @@ class SinglyLinkedListNoDummy :     # ทำงานเหมือนกับ
           p = self.Node(data,self.head)
           self.head = p
           self.size += 1
+
+
