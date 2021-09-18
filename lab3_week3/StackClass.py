@@ -20,9 +20,22 @@ class Stack:
     def size(self):
         return len(self.items)
     
-    def value(self):
+    def __str__(self):
         s = ' '
         for ele in self.items:
             s += str(ele)+' '
         return s
+    
+    def value(self):
+        s = ''
+        i = len(self.items)-1
+        while i >= 0:
+            s += self.items[i]
+            i-=1
+        return s  
+
+
+j = ['a','b','c']
+e = Stack(j)
+print(e.value())
 
