@@ -1,61 +1,28 @@
-from itertools import permutations
 from time import time
-from os import path, environ
-import pickle
+from itertools import permutations
 import matplotlib.pyplot as plt
+import pickle
+from os import path, environ
+
+timeCapture = {
+    'Recursive': [],
+    'Iterative': []
+}
 
 def timer(func):
     def wrap_func(*args, **kwargs):
-        global time_capture
+        global timeCapture
         t1 = time()
         result = func(*args, **kwargs)
         t2 = time()
         delta_t = t2-t1
         print(f'Function {func.__name__!r} N = {args[0]} executed in {delta_t}s')
-        time_capture[func.__name__].append((args[0], delta_t))
+        timeCapture[func.__name__].append((args[0], delta_t))
         return result
     return wrap_func
 
 @timer
-def nqueen_recursive(N):
-    numSol = 0  
-
-    b = N*[-1] 
-    colFree = N*[1] 
-    upFree = (2*N - 1)*[1] 		
-    downFree = (2*N - 1)*[1]    		
-
-    def printBoard(b):
-        for row in range(N):
-            print([0 if i != b[row] else 1 for i in range(N)])
-        print()
-
-    def putQueen(r, b, colFree, upFree, downFree):
-        nonlocal N
-        nonlocal numSol
-        for c in range(N): 
-            if colFree[c] and upFree[r+c] and downFree[r-c+N-1]:
-                b[r] = c
-
-                colFree[c] = upFree[r+c] = downFree[r-c+N-1] = 0
-
-                if r == N-1:
-                    # printBoard(b)
-                    numSol += 1
-                else:
-                    putQueen(r+1, b, colFree, upFree, downFree)
-                colFree[c] = upFree[r+c] = downFree[r-c+N-1] = 1
-                                                                
-    putQueen(0, b, colFree, upFree, downFree)
-    print(f'number of solutions : {numSol}')
-
-@timer
-def nqueen_iterative(N):
-
-    def print_table():
-        nonlocal N
-        for row in range(N):
-            print([0 if i == 1 else 1 for i in table[row]])
+def Iterative(N):
 
     def put_queen(x,y):
         nonlocal N
@@ -89,33 +56,55 @@ def nqueen_iterative(N):
         if is_solution:
             # print_table()
             num_comb += 1
-            # print(f"solution{num_comb}")
-            # print(" ")
         table = [[0] * N for _ in range(N)]
     
     print(f'number of solutions : {num_comb}')
 
-time_capture = {
-    'nqueen_recursive': [],
-    'nqueen_iterative': []
-}
+@timer
+def Recursive(N):
+    numSol = 0  
+
+    b = N*[-1] 
+    colFree = N*[1] 
+    upFree = (2*N - 1)*[1] 		
+    downFree = (2*N - 1)*[1]    		
+
+    def printBoard(b):
+        for row in range(N):
+            print([0 if i != b[row] else 1 for i in range(N)])
+        print()
+
+    def putQueen(r, b, colFree, upFree, downFree):
+        nonlocal N
+        nonlocal numSol
+        for c in range(N): 
+            if colFree[c] and upFree[r+c] and downFree[r-c+N-1]:
+                b[r] = c
+                colFree[c] = upFree[r+c] = downFree[r-c+N-1] = 0
+                if r == N-1:
+                    numSol += 1
+                else:
+                    putQueen(r+1, b, colFree, upFree, downFree)
+                colFree[c] = upFree[r+c] = downFree[r-c+N-1] = 1                                                            
+    putQueen(0, b, colFree, upFree, downFree)
+    print(f'number of solutions : {numSol}')
 
 def nqueen():
     for n in range(4, 11):
-        nqueen_recursive(n)
-        nqueen_iterative(n)
+        Recursive(n)
+        Iterative(n)
 
     # saving data
-    print('saving time capture to nqueen_time_capture.pkl.......')
-    with open('nqueen_time_capture.pkl', 'wb') as file:
-        pickle.dump(time_capture, file)
+    print('saving time capture to nqueen_timeCapture.pkl.......')
+    with open('nqueen_timeCapture.pkl', 'wb') as file:
+        pickle.dump(timeCapture, file)
 
 def plot_graph():
-    with open('nqueen_time_capture.pkl', 'rb') as file:
-        time_capture = pickle.load(file)
+    with open('nqueen_timeCapture.pkl', 'rb') as file:
+        timeCapture = pickle.load(file)
 
-    recursive = list(map(lambda x: x[1], time_capture['nqueen_recursive']))
-    iterative = list(map(lambda x: x[1], time_capture['nqueen_iterative']))
+    recursive = list(map(lambda x: x[1], timeCapture['Recursive']))
+    iterative = list(map(lambda x: x[1], timeCapture['Iterative']))
     N = [i for i in range(4, 11)]
     plt.xlabel('Number of Queens')
     plt.ylabel('Time (seconds)')
@@ -132,6 +121,6 @@ def suppress_qt_warnings():
 
 if __name__ == '__main__':
     suppress_qt_warnings()
-    if not path.isfile('./nqueen_time_capture.pkl'):
+    if not path.isfile('./nqueen_timeCapture.pkl'):
         nqueen()
     plot_graph()
