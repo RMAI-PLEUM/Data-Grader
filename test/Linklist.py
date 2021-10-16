@@ -4,7 +4,7 @@ class Node:
         self.prev = prev
         self.next = next
 
-class Linklist:
+class DoubleLinklist:
     def __init__(self, list = None):
         
         self.head = None
@@ -136,25 +136,26 @@ class Linklist:
             p = p.next
         return s
 
-list = ['m','y','l']
-link = Linklist()
-link.pushback('khdoifhoehf')
-print(link)
-link.pushfont('555')
-print(link)
-link.pushback('miss')
-link.popfont()
-link.popback()
-print(link.size)
-print(link)
-link.pushback('you')
-print(link)
-print(link.indexOF('you'))
-link.pushfont('same')
-link.pushback('hello')
-print(link)
-link.remove('you')
-print(link)
+# list = ['m','y','l']
+# link = DoubleLinklist()
+# link.pushback('khdoifhoehf')
+# print(link)
+# link.pushfont('555')
+# print(link)
+# link.pushback('miss')
+# link.popfont()
+# link.popback()
+# print(link.size)
+# print(link)
+# link.pushback('you')
+# print(link)
+# print(link.indexOF('you'))
+# link.pushfont('same')
+# link.pushback('hello')
+# print(link)
+# link.remove('you')
+# print(link)
+
 
 
 
