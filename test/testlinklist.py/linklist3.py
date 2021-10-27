@@ -71,15 +71,20 @@ class SinglyLinklist:
             print('linklist is empty.')
             return 
         if self.size == 1:
+            last = self.head
             self.head = None
             self.tail = None
             self.size = 0
+            return last.data
+
         else:
             i = self.size -1
             p = self.nodeAt(i-1)
             p.next = None
+            last = self.tail
             self.tail = p
             self.size -= 1
+            return last.data
 
     def Indexof(self, data):
         if self.size == 0:
@@ -149,24 +154,16 @@ class SinglyLinklist:
             print(f'{data} not in Linklist.')
         return
 
-list = [1,2,3,4,5,6,7,8,9,10,11]
-sum = ['a','l','l','m']
-A = SinglyLinklist(list)
-A.pushfront('head')
-A.popfont()
-A.popback()
-A.pushback("might")
-A.insertAfter(3, 'insert')
-A.remove('might')
-A.remove('a')
-A.remove('might')
-A.remove('l')
-A.remove('l')
-A.pushfront('happy')
+inp = input('Enter Input (L1,L2) : ').split()
+list1 = inp[0].split('->')
+list2 = inp[1].split('->')
+l1 = SinglyLinklist(list1)
+l2 = SinglyLinklist(list2)
+print(f'L1    : {l1} ')
+print(f'L2    : {l2} ')
 
-
-print(A)
-print('tail ->', A.tail)
-print('Size : ',len(A))
-
+merge = l1
+for _ in range(len(l2)):
+    merge.pushback(l2.popback())
+print(f'Merge : {merge}')
 

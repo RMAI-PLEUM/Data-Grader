@@ -24,6 +24,14 @@ class SinglyLinklist:
             p = p.next
         return s
 
+    def value(self):
+        s = ''
+        p = self.head
+        while p != None:
+            s += str(p.data) + ' '
+            p = p.next
+        return s
+
     def __len__(self):
         return self.size
 
@@ -128,45 +136,74 @@ class SinglyLinklist:
 
     def remove(self, data):
         if self.isIn(data):
-            if self.Indexof(data) == 0:
+            if self.Indexof(data) == 0 and self.size > 0:
                 self.popfont()
                 return
-            elif self.Indexof(data == self.size - 1):
+            elif self.Indexof(data) == self.size-1:
                 self.popback()
                 return
-            else:
+            elif self.Indexof(data) > 0 and self.Indexof(data) < self.size-1:
                 current_node = self.nodeAt(self.Indexof(data))
-                p = self.nodeAt(self.Indexof(data)-1)
-                conti = self.nodeAt(self.Indexof(data)+1)
-                if self.Indexof(conti.data) == self.size:
-                    self.popback()
-                    return
-                else:
-                    current_node.next = None
-                    p.next = conti
-                    self.size -= 1
+                previous_node =  self.nodeAt(self.Indexof(data)-1)
+                next_node =  self.nodeAt(self.Indexof(data)+1)
+                previous_node.next = next_node
+                current_node.next = None
+                self.size -= 1
+                return
         else:
             print(f'{data} not in Linklist.')
         return
+    
+    def pop(self, index):
+        current_node = self.nodeAt(index)
+        previous_node = self.nodeAt(index-1)
+        next_node = self.nodeAt(index+1)
+        previous_node.next = next_node
+        current_node.next = None
+        self.size -= 1
+        return
 
-list = [1,2,3,4,5,6,7,8,9,10,11]
-sum = ['a','l','l','m']
-A = SinglyLinklist(list)
-A.pushfront('head')
-A.popfont()
-A.popback()
-A.pushback("might")
-A.insertAfter(3, 'insert')
-A.remove('might')
-A.remove('a')
-A.remove('might')
-A.remove('l')
-A.remove('l')
-A.pushfront('happy')
+text = SinglyLinklist('|')
+inp = input('Enter Input : ').split(',')
+for i in inp:
+    if i[0] == 'I': #เป็นการนำ word ลงไปใส่ในตำแหน่งของ Cursor ปัจจุบัน หลังจากใส่ word เสร็จ ตำแหน่งของ Cursor จะมาอยู่ด้านหลังของ word ที่ใส่ลงไป
+        text.insertAfter(text.Indexof('|'), i[2:])
+    elif i[0] == 'L': #:   เป็นการเลื่อน Cursor จากตำแหน่งปัจจุบันไปทางด้านซ้าย 1 ตำแหน่ง 
+        index = text.Indexof('|')
+        text.remove('|')
+        if index <= 0:
+            text.insertAfter(0, '|')
+        if index > 0:
+            text.insertAfter(index-1, '|')
+    elif i[0] == 'R': #   เป็นการเลื่อน Cursor จากตำแหน่งปัจจุบันไปทางด้านขวา 1 ตำแหน่ง
+        if '|' in text.value() and text.size == 2:
+            text.remove('|')
+            text.pushback('|')
+        elif '|' in text.value() and text.size > 1:
+            index = text.Indexof('|')
+            text.remove('|')
+            if index >= text.size-1:
+                text.insertAfter(text.size-1,'|')
+            if index < text.size:
+                text.insertAfter(index+1,'|')
+        
+    elif i[0] == 'B': # เป็นการลบ word 1 ตัวทางด้านซ้ายของ Cursor 
+        index = text.Indexof('|')
+        if index > 0:
+            text.pop(index-1)
+    elif i[0] == 'D': #เป็นการลบ word 1 ตัวทางด้านขวาของ Cursor
+        index = text.Indexof('|')
+        if index < text.size-1:
+            text.pop(index+1)
+print(text)
+
+# test = SinglyLinklist(['Apple','Bird', 'Cat','|'])
+# index = test.Indexof('|')
+# test.remove('|')
+# test.insertAfter(index-1, '|')
+# index = test.Indexof('|')
+# test.remove('|')
 
 
-print(A)
-print('tail ->', A.tail)
-print('Size : ',len(A))
-
-
+# print(test)
+# print(index)

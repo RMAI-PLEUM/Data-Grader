@@ -20,9 +20,9 @@ class SinglyLinklist:
         s = ''
         p = self.head
         while p != None:
-            s += str(p.data) + ' '
+            s += str(p.data) + '->'
             p = p.next
-        return s
+        return s[:-2]
 
     def __len__(self):
         return self.size
@@ -149,24 +149,29 @@ class SinglyLinklist:
             print(f'{data} not in Linklist.')
         return
 
-list = [1,2,3,4,5,6,7,8,9,10,11]
-sum = ['a','l','l','m']
-A = SinglyLinklist(list)
-A.pushfront('head')
-A.popfont()
-A.popback()
-A.pushback("might")
-A.insertAfter(3, 'insert')
-A.remove('might')
-A.remove('a')
-A.remove('might')
-A.remove('l')
-A.remove('l')
-A.pushfront('happy')
+inp = input('Enter Input : ').split(',')
+l = SinglyLinklist(inp[0].split())
 
+if(inp[0] == ' '):
+    print('List is empty')
+else :
+    print(f'link list : {l}')
 
-print(A)
-print('tail ->', A.tail)
-print('Size : ',len(A))
+for i in range(1,len(inp)):
+    inp[i].split(':')
+    buffer = inp[i].split(':')
+    index = int(buffer[0])
+    data = int(buffer[1])
+    
+    if index >= 0 and index <= len((l)):
+            l.insertAfter(index, data)
+            print(f'index = {index} and data = {data}')
+            if (l.isEmpty()):
+                print('List is empty')
+            else:
+                print(f'link list : {l}')
+    else:
+            print('Data cannot be added')
 
-
+if (l.isEmpty()):
+                print('List is empty')
