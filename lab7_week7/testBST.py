@@ -13,10 +13,9 @@ class BST:
 
     def insert(self, data):
         if self.root == None:
-            new_node = Node(data)
-            self.root = new_node
+            self.root = Node(data)
             return
-        else:
+        else: 
             p = self.root
             while True:
                 if data >= p.data:
@@ -24,7 +23,7 @@ class BST:
                         p.right = Node(data)
                         break
                     else:
-                        p =  p.right
+                        p = p.right
                 if data < p.data:
                     if p.left == None:
                         p.left = Node(data)
