@@ -236,6 +236,37 @@ class BST:
             else:
                 p = p.left
         print('Not exist')
+    
+    def father(self, node, data):
+        if node == None:
+            return 'Tree is empty'
+        if node.data == data:
+            return f'Not because {data} is Root'
+        else:
+            p = node
+            while p.right != None or p.left != None:
+                if p.right != None and p.right.data == data:
+                    return p.data
+                elif p.left != None and p.left.data == data:
+                    return p.data
+                else:
+                    if data >= p.data:
+                        p = p.right
+                    else: p = p.left
+        return 'Not found data'
+
+    def path(self, node, data):
+        if node.data == data:
+            print(node.data)
+            return node
+        else:
+            if data < node.data:
+                print(node.data,end=' ')
+                return self.path(node.left, data)
+            else:
+                print(node.data,end=' ')
+                return self.path(node.right, data)            
+
 
     def printTree(self, node, level = 0):
         if node != None:
@@ -251,8 +282,7 @@ inp = [int(i) for i in test.split()]
 for i in inp:
     root = T.insert(i)
 T.printTree(root)
-T.checkposition()
-
+T.path(root,-1)
 
 
 
