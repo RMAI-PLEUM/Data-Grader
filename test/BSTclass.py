@@ -282,7 +282,7 @@ inp = [int(i) for i in test.split()]
 for i in inp:
     root = T.insert(i)
 T.printTree(root)
-T.path(root,-1)
+T.displayOrder()
 
 
 
