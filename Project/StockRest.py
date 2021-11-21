@@ -151,7 +151,7 @@ while True:
 
                 print('>'*10)
                 for j in range(len(item)):
-                    print(f'{item[j]} = {q[j]}')
+                    print(f'{item[j]} = {len(q[j])}')
                 print('>'*10)
                 
 
