@@ -5,7 +5,7 @@ class Node:
         self.right = None
 
     def __str__(self):
-        return self.data
+        return str(self.data)
 
 
 class BinarySearchTree:
@@ -40,7 +40,15 @@ class BinarySearchTree:
         print()
         return self.root
 
+    def printTree(self, node, level = 0):
+        if node != None:
+            self.printTree(node.right, level + 1)
+            print('     ' * level, node)
+            self.printTree(node.left, level + 1)
+
 inp = [int(i) for i in input('Enter Input : ').split()]
 t = BinarySearchTree()
 for i in inp:
     root = t.insert(i)
+
+t.printTree(root)

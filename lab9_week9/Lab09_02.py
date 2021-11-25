@@ -2,7 +2,7 @@ def Sort_ignor_negative(list):
     for i in range(len(list)):
         if list[i] < 0:
             continue
-        min = [-1, float('inf')]
+        min = [-1,1]
         for j in range(i, len(list)):
             if list[j] < 0:
                 continue

@@ -10,7 +10,7 @@ def bubbleSort(list):
             break
     return result
 
-def sort_subset(target, lst, left = 0, res=[], carry=[]):
+def sort_subset(target, lst, left = 0, res=[], carry=[]):  
     if left >= len(lst):
         return res
     carry.append(lst[left])
