@@ -1,6 +1,10 @@
+count = 0
 def bouble_sort(lst):
     def swap(i, j):
+
         lst[i], lst[j] = lst[j], lst[i]
+
+
     
     n = len(lst)
     swapped = True
@@ -13,3 +17,6 @@ def bouble_sort(lst):
                 swap(i-1, i)
                 swapped = True
     return lst
+
+inp = list(map(int,input('Enter Input : ').split()))
+

@@ -12,6 +12,7 @@ class TreeNode(object):
 class AVL_Tree(object):
  
     def insert(self, root, key):
+     
         if not root:
             return TreeNode(key)
         elif key < root.val:
@@ -37,36 +38,46 @@ class AVL_Tree(object):
  
         return root
 
-    def leftRotate(self, node):
+    def leftRotate(self, z):
  
-        y = node.right
-        buf = y.left
+        y = z.right
+        T2 = y.left
  
-        y.left = node
-        node.right = buf
-        node.height = 1 + max(self.getHeight(node.left),self.getHeight(node.right))   
-        y.height = 1 + max(self.getHeight(y.left),self.getHeight(y.right))
+        y.left = z
+        z.right = T2
+ 
+        z.height = 1 + max(self.getHeight(z.left),
+                         self.getHeight(z.right))
+        y.height = 1 + max(self.getHeight(y.left),
+                         self.getHeight(y.right))
+ 
         return y
 
-    def rightRotate(self, node):
+    def rightRotate(self, z):
  
-        y = node.left
-        buf = y.right
+        y = z.left
+        T3 = y.right
  
-        y.right = node
-        node.left = buf
-        node.height = 1 + max(self.getHeight(node.left),self.getHeight(node.right))      
-        y.height = 1 + max(self.getHeight(y.left),self.getHeight(y.right))
+        y.right = z
+        z.left = T3
+
+        z.height = 1 + max(self.getHeight(z.left),
+                        self.getHeight(z.right))
+        y.height = 1 + max(self.getHeight(y.left),
+                        self.getHeight(y.right))
+
         return y
  
     def getHeight(self, root):
         if not root:
             return 0
+ 
         return root.height
 
     def getBalance(self, root):
         if not root:
             return 0
+ 
         return self.getHeight(root.left) - self.getHeight(root.right)
 
 def printTree(node, level = 0):
